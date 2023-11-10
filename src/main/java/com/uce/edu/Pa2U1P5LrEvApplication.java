@@ -13,8 +13,9 @@ public class Pa2U1P5LrEvApplication implements CommandLineRunner{
 	public void run(String...args) throws Exception{
 		System.out.println("Hola Mundo");
 		System.out.println("Soy Leonardo Ramirez y Edlith Vinueza");
-		System.err.println("Cambio en la misma Rama");
+		System.out.println("Cambio en la misma Rama");
 		System.out.println("Cambio en una nueva rama taller 3");
+		System.err.println("Nuevo Cambio");
 	}
 	
 }
