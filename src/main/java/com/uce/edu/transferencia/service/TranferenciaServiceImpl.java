@@ -1,6 +1,7 @@
 package com.uce.edu.transferencia.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,18 +47,41 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 	public void realizar(String numeroOrigen, String numeroDestino, BigDecimal monto) {
 		// TODO Auto-generated method stub
 		// 1. Buscar cuenta Origen
-		CuentaBancaria ctaOrigenBancaria = this.iCuentaBancariaRepository.selecionar(numeroDestino);
+		CuentaBancaria ctaOrigen = this.iCuentaBancariaRepository.selecionar(numeroOrigen);
 		// 2. Consultar el saldo
+		BigDecimal saldoOrige=ctaOrigen.getSaldo();
+		
 		// 3. Validar el saldo
-		// 4. Restar el monto
-
-		// 5. Actualizar cuenta Origen
-		// 6. Buscar cuenta destino
-		// 7. Sumar el monto
-		// 8. Actualiar cuenta destino
-
-		// 10. Crear la transferencia
-
+		if (saldoOrige.compareTo(monto)>=0) {
+			// 4. Restar el monto
+			BigDecimal nuevoSaldoOrige = saldoOrige.subtract(monto);
+			// 5. Actualizar cuenta Origen
+			ctaOrigen.setSaldo(nuevoSaldoOrige);
+			this.iCuentaBancariaRepository.actualizar(ctaOrigen);
+			// 6. Buscar cuenta destino
+			CuentaBancaria ctaDestino=this.iCuentaBancariaRepository.selecionar(numeroDestino);
+			// 7  Consultar saldo
+			BigDecimal saldoDestino = ctaDestino.getSaldo();
+			// 8. Sumar el monto
+			BigDecimal nuevoSaldoDestino= saldoDestino.add(monto);
+			// 9. Actualiar cuenta destino
+			ctaDestino.setSaldo(nuevoSaldoDestino);
+			this.iCuentaBancariaRepository.actualizar(ctaDestino);
+			// 10. Crear la transferencia
+			Transferencia transferencia = new Transferencia();
+			transferencia.setCuentaOrigen(ctaOrigen);
+			transferencia.setCuentaDestino(ctaDestino);
+			transferencia.setFecha(LocalDateTime.now());
+			transferencia.setMonto(monto);
+			transferencia.setNumero("123456789");
+			
+			this.iTransferenciaRepository.insertar(transferencia);
+			System.out.println("¡Tranferencia realizada con exito!");
+		}
+		else {
+			System.out.println("Saldo no disponible");
+		}
+		
 	}
 
 }

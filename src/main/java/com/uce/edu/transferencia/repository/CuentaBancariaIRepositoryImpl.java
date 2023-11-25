@@ -16,7 +16,11 @@ public class CuentaBancariaIRepositoryImpl implements ICuentaBancariaRepository 
 	
 		for(CuentaBancaria cuenta : base) {
 			if (cuenta.getNumero().equals(nuemro)) {
-				return cuenta;
+				CuentaBancaria ctaBancaria = new CuentaBancaria();
+				ctaBancaria.setCedulaPropietario(cuenta.getCedulaPropietario());
+				ctaBancaria.setNumero(cuenta.getNumero());
+				ctaBancaria.setSaldo(cuenta.getSaldo());
+				return ctaBancaria;
 			}
 		}
 		return null;
