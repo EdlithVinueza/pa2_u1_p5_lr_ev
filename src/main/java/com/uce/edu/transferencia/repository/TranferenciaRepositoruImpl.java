@@ -40,5 +40,11 @@ public class TranferenciaRepositoruImpl implements ITransferenciaRepository{
 		base.remove(tranferencia);
 		
 	}
+	
+	@Override
+	public List<Transferencia> selecionarTodo() {
+		// TODO Auto-generated method stub
+		return base;
+	}
 
 }

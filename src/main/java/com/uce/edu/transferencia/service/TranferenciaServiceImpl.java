@@ -2,10 +2,12 @@ package com.uce.edu.transferencia.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.uce.edu.transferencia.repository.INumeracionRepository;
 import com.uce.edu.transferencia.repository.ICuentaBancariaRepository;
 import com.uce.edu.transferencia.repository.ITransferenciaRepository;
 import com.uce.edu.transferencia.repository.modelo.CuentaBancaria;
@@ -17,6 +19,8 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 	private ITransferenciaRepository iTransferenciaRepository;
 	@Autowired
 	private ICuentaBancariaRepository iCuentaBancariaRepository; 
+	@Autowired
+	private INumeracionService iNumeracionService; 
 	
 
 	@Override
@@ -68,12 +72,14 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 			ctaDestino.setSaldo(nuevoSaldoDestino);
 			this.iCuentaBancariaRepository.actualizar(ctaDestino);
 			// 10. Crear la transferencia
+			
+			String num = this.iNumeracionService.establecerContador();
 			Transferencia transferencia = new Transferencia();
 			transferencia.setCuentaOrigen(ctaOrigen);
 			transferencia.setCuentaDestino(ctaDestino);
 			transferencia.setFecha(LocalDateTime.now());
 			transferencia.setMonto(monto);
-			transferencia.setNumero("123456789");
+			transferencia.setNumero(num);
 			
 			this.iTransferenciaRepository.insertar(transferencia);
 			System.out.println("¡Tranferencia realizada con exito!");
@@ -82,6 +88,12 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 			System.out.println("Saldo no disponible");
 		}
 		
+	}
+	
+	@Override
+	public List<Transferencia> visulizarTodoList() {
+		// TODO Auto-generated method stub
+		return this.iTransferenciaRepository.selecionarTodo();
 	}
 
 }

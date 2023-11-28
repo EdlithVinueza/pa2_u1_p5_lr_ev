@@ -20,6 +20,7 @@ import org.springframework.boot.CommandLineRunner;
 
 @SpringBootApplication
 public class Pa2U1P5LrEvApplication implements CommandLineRunner {
+	
 	@Autowired
 	private ITransferenciaService iTransferenciaService;
 	@Autowired
@@ -46,18 +47,14 @@ public class Pa2U1P5LrEvApplication implements CommandLineRunner {
 		this.iCuentaBancariaService.guardar(ctaDestino);
 
 		this.iTransferenciaService.realizar("1234","5678", new BigDecimal(20));
+		this.iTransferenciaService.realizar("5678","1234", new BigDecimal(50));
+		this.iTransferenciaService.realizar("1234","5678", new BigDecimal(10));
 		
-		//System.out.println(ctaOrigen);
-		//System.out.println(ctaDestino);
-		
-		
-		CuentaBancaria ctaOrigen1 = this.iCuentaBancariaService.buscar("1234");
-		System.out.println(ctaOrigen1);
-		CuentaBancaria ctaDestino1 = this.iCuentaBancariaService.buscar("5678");
-		System.out.println(ctaDestino1);
-		
-		
-		
+		System.out.println("Contador");
+	
+		List<Transferencia> lista = this.iTransferenciaService.visulizarTodoList();
+		for(Transferencia trans: lista) {
+			System.out.println("Transferencia "+trans.toString());
+		}
 	}
-
 }
