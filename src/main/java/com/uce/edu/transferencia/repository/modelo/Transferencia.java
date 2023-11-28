@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
-//@Component
+@Component
 public class Transferencia {
 	private String numero;
 	private LocalDateTime fecha;

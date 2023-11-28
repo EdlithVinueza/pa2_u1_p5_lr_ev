@@ -12,7 +12,7 @@ public interface ITransferenciaService {
 	public void actualizar(Transferencia transferencia);
 	public void eliminar(String numero);
 	public void realizar(String numeroOrigen, String numeroDestino, BigDecimal monto);
-	public List<Transferencia> visulizarTodoList ();
+	public List<Transferencia> visulizarTodo();
 
 
 }

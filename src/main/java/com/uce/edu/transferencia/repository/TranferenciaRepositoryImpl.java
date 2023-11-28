@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.uce.edu.transferencia.repository.modelo.Transferencia;
 @Repository
-public class TranferenciaRepositoruImpl implements ITransferenciaRepository{
+public class TranferenciaRepositoryImpl implements ITransferenciaRepository{
 	private static List<Transferencia> base= new ArrayList<Transferencia>();
 	@Override
 	public Transferencia selecionar(String nuemro) {

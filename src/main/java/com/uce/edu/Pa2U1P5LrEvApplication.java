@@ -47,31 +47,33 @@ public class Pa2U1P5LrEvApplication implements CommandLineRunner {
 
 		this.iTransferenciaService.realizar("1234","5678", new BigDecimal(20));
 		
-		System.out.println(ctaOrigen);
-		System.out.println(ctaDestino);
-
-		CuentaBancaria ctaOrigen1 = this.iCuentaBancariaService.buscar("1234");
-		System.out.println(ctaOrigen1);
-		CuentaBancaria ctaDestino1 = this.iCuentaBancariaService.buscar("5678");
-		System.out.println(ctaDestino1);
+		System.out.println("--------------------------------------");
+		System.out.println("Comprovacion del deposito con el 10% ");
+		System.out.println("--------------------------------------");
 		
+		System.out.println("Cuenta Origen antes:"+ ctaOrigen);
+		System.out.println("Cuenta Destino antes: "+ctaDestino);
+		CuentaBancaria ctaOrigen1 = this.iCuentaBancariaService.buscar("1234");
+		System.out.println("Cuenta Origen despues: "+ctaOrigen1);
+		CuentaBancaria ctaDestino1 = this.iCuentaBancariaService.buscar("5678");
+		System.out.println("Cuenta Destino despues: "+ctaDestino1);
+		System.out.println("--------------------------------------");
 		this.iTransferenciaService.realizar("1234","5678", new BigDecimal(50));
 		this.iTransferenciaService.realizar("5678","1234", new BigDecimal(10));
 		
-		//Contruir un reporte del estado de cuenta de todas las tranferencias}
+		//Contruir un reporte del estado de cuenta de todas las tranferencias
+		
+		System.out.println("--------------------------------------");
 		System.out.println("Reporte de Transferencias");
+		System.out.println("--------------------------------------");
+		
 		int indice = 0;
-		List<Transferencia> lista = this.iTransferenciaService.visulizarTodoList();
+		List<Transferencia> lista = this.iTransferenciaService.visulizarTodo();
 		for(Transferencia trans: lista) {
 			indice++;
 			System.out.println("Transferencia numero: "+indice+": "+trans.toString());
 		}
 		System.out.println("Gracias por utilizar nuestro servicio");
-		
-		System.out.println("Comprovacion del deposito con el 10%");
-		//pendiente 
 	}
 	
-
-
 }

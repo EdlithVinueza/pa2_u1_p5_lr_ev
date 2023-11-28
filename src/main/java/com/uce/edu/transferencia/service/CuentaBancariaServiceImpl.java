@@ -40,17 +40,14 @@ public class CuentaBancariaServiceImpl implements ICuentaBancariaService {
 	}
 
 	@Override
-	public void depositar(String numero, BigDecimal deposito) {
-		BigDecimal descuento = new BigDecimal(0.1);
-		System.out.println(""+descuento);
-		BigDecimal restar = deposito.multiply(descuento);
-		BigDecimal depositoFinal = deposito.subtract(restar);
+	public void depositar(String numero,BigDecimal deposito) {
+		BigDecimal montoRestar = deposito.multiply(new BigDecimal(0.1));
+		BigDecimal depositoFinal = deposito.subtract(montoRestar);
 		CuentaBancaria ctaTmp = this.buscar(numero);
 		BigDecimal saldoActual = ctaTmp.getSaldo();
 		BigDecimal nuevoSaldo = saldoActual.add(depositoFinal);
 		ctaTmp.setSaldo(nuevoSaldo);
 		actualizar(ctaTmp);
-		
 	}
 
 }

@@ -18,6 +18,10 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 	private ITransferenciaRepository iTransferenciaRepository;
 	@Autowired
 	private ICuentaBancariaRepository iCuentaBancariaRepository; 
+	@Autowired
+	private ICuentaBancariaService iCuentaBancariaService; 
+	@Autowired
+	private INumeracionService iNumeracionService; 
 	
 
 	@Override
@@ -49,7 +53,7 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 		// TODO Auto-generated method stub
 		// 1. Buscar cuenta Origen
 		CuentaBancaria ctaOrigen = this.iCuentaBancariaRepository.selecionar(numeroOrigen);
-		System.out.println(ctaOrigen.hashCode());
+		//System.out.println(ctaOrigen.hashCode());
 		// 2. Consultar el saldo
 		BigDecimal saldoOrige=ctaOrigen.getSaldo();
 		
@@ -59,25 +63,22 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 			BigDecimal nuevoSaldoOrige = saldoOrige.subtract(monto);
 			// 5. Actualizar cuenta Origen
 			ctaOrigen.setSaldo(nuevoSaldoOrige);
-			
 			this.iCuentaBancariaRepository.actualizar(ctaOrigen);
 			// 6. Buscar cuenta destino
 			CuentaBancaria ctaDestino=this.iCuentaBancariaRepository.selecionar(numeroDestino);
-			System.out.println(ctaDestino.hashCode());
+			//System.out.println(ctaDestino.hashCode());
 			// 7  Consultar saldo
-			BigDecimal saldoDestino = ctaDestino.getSaldo();
 			// 8. Sumar el monto
-			BigDecimal nuevoSaldoDestino= saldoDestino.add(monto);
 			// 9. Actualiar cuenta destino
-			ctaDestino.setSaldo(nuevoSaldoDestino);
-			this.iCuentaBancariaRepository.actualizar(ctaDestino);
+			this.iCuentaBancariaService.depositar(ctaDestino.getNumero(), monto);
 			// 10. Crear la transferencia
+			String num = this.iNumeracionService.establecerContador();
 			Transferencia transferencia = new Transferencia();
 			transferencia.setCuentaOrigen(ctaOrigen);
 			transferencia.setCuentaDestino(ctaDestino);
 			transferencia.setFecha(LocalDateTime.now());
 			transferencia.setMonto(monto);
-			transferencia.setNumero("123456789");
+			transferencia.setNumero(num);
 			
 			this.iTransferenciaRepository.insertar(transferencia);
 			System.out.println("¡Tranferencia realizada con exito!");
@@ -89,7 +90,7 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 	}
 
 	@Override
-	public List<Transferencia> visulizarTodoList() {
+	public List<Transferencia> visulizarTodo() {
 		// TODO Auto-generated method stub
 		return this.iTransferenciaRepository.selecionarTodo();
 	}
