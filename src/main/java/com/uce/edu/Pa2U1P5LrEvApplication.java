@@ -20,10 +20,36 @@ import org.springframework.boot.CommandLineRunner;
 
 @SpringBootApplication
 public class Pa2U1P5LrEvApplication implements CommandLineRunner {
+	
+	/* DI por Atributo
 	@Autowired
 	private ITransferenciaService iTransferenciaService;
+	*/ 
+	
+	/* DI por Constructor 
+	@Autowired
+	public Pa2U1P5LrEvApplication(ITransferenciaService iTransServi) {
+		this.iTransferenciaService= iTransServi;
+	}
+	*/
+	
+	/*DI por metodo set 
+	 private ITransferenciaService iTransferenciaService;
+	@Autowired
+	public void setiTransferenciaService(ITransferenciaService iTransferenciaService) {
+		this.iTransferenciaService = iTransferenciaService;
+	}
+	*/
+	
+	private ITransferenciaService iTransferenciaService;
+	@Autowired
+	public void setiTransferenciaService(ITransferenciaService iTransferenciaService) {
+		this.iTransferenciaService = iTransferenciaService;
+	}
+	
 	@Autowired
 	private ICuentaBancariaService iCuentaBancariaService;
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U1P5LrEvApplication.class, args);

@@ -23,7 +23,6 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 	@Autowired
 	private INumeracionService iNumeracionService; 
 	
-
 	@Override
 	public Transferencia buscar(String numero) {
 		// TODO Auto-generated method stub
@@ -56,7 +55,6 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 		//System.out.println(ctaOrigen.hashCode());
 		// 2. Consultar el saldo
 		BigDecimal saldoOrige=ctaOrigen.getSaldo();
-		
 		// 3. Validar el saldo
 		if (saldoOrige.compareTo(monto)>=0) {
 			// 4. Restar el monto
@@ -71,6 +69,7 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 			// 8. Sumar el monto
 			// 9. Actualiar cuenta destino
 			this.iCuentaBancariaService.depositar(ctaDestino.getNumero(), monto);
+			
 			// 10. Crear la transferencia
 			String num = this.iNumeracionService.establecerContador();
 			Transferencia transferencia = new Transferencia();
@@ -86,7 +85,6 @@ public class TranferenciaServiceImpl implements ITransferenciaService {
 		else {
 			System.out.println("Saldo no disponible");
 		}
-		
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 public class Numeracion {
 
-	private long contador = 0;
+	private long contador = 156974;
 
 	public long getContador() {
 		return contador;
