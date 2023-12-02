@@ -63,16 +63,16 @@ public class Pa2U1P5LrEvApplication implements CommandLineRunner {
 		this.iBodegaService.guardar(b1);
 		
 		System.out.println("Antes de editar");
-		System.out.println(this.iProductoService.Buscar(p1.getCodigoBoarra()));
-		System.out.println(this.iProductoService.Buscar(p2.getCodigoBoarra()));
+		System.out.println(this.iProductoService.Buscar("123456"));
+		System.out.println(this.iProductoService.Buscar("546515646"));
 		
 		this.iInventarioService.registar(b1.getCodigo(), p1.getCodigoBoarra(), 50);
 		this.iInventarioService.registar(b1.getCodigo(), p2.getCodigoBoarra(), 100);
 		this.iInventarioService.registar(b1.getCodigo(), p1.getCodigoBoarra(), 20);
 		
 		System.out.println("Despues de editar");
-		System.out.println(this.iProductoService.Buscar(p1.getCodigoBoarra()));
-		System.out.println(this.iProductoService.Buscar(p2.getCodigoBoarra()));
+		System.out.println(this.iProductoService.Buscar("123456"));
+		System.out.println(this.iProductoService.Buscar("546515646"));
 		
 	} 
 	
